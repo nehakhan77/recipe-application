@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'recipes/css/styles.css' %}">
+    <title>Recipes Home</title>
+    <link rel="shortcut icon" href="{% static 'recipes/images/' %}">
+</head>
+<body>
+    <header class="page-header">
+        <h1>Recipe App</h1>
+        <nav class="main-navigation page-header__item">
+            <ul role="menubar" class="navigation-list">
+                <li role="presentation" role="menuitem" class="navigation-list__item"><a href="{% url 'recipes:create' %}">Create</a></li>
+                <li role="presentation" role="menuitem" class="navigation-list__item"><a href="{% url 'recipes:list' %}">Recipes</a></li>
+                <li role="presentation" role="menuitem" class="navigation-list__item"><a href="{% url 'users:profile' %}">Profile</a></li>
+                <li role="presentation" role="menuitem" class="navigation-list__item"><a href ="{%url 'logout' %}"> Logout </a></li>
+             </ul>
+         </nav>
+    </header>
+    <div class="flex-container">
+        <div class="recipe-container-details">
+            <h2>{{object.name}}</h2>
+            <b>Author: </b> {{object.author}} <br>
+            <b>Difficulty: </b> {{object.difficulty}} <br>
+            <b>Cooking Time: </b> {{object.cooking_time}} <br>
+            <b>Ingredients: </b> {{object.ingredients}} <br>
+            <b>Description: </b> {{object.description}} <br>
+            <div>
+                <img src="{{object.pic.url}}" class="detail-image"/>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,175 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'recipes/css/styles.css' %}">
+    <title>Recipes Home</title>
+    <link rel="shortcut icon" href="{% static 'recipes/images/' %}">
+    <style>
+         body {
+            margin: 0;
+            padding: 0;
+        }
+
+        main {
+            margin-top: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-box {
+            padding: 30px;
+            width: 80%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.23);
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(25px);
+            flex-direction: column;
+        }
+
+        .main-box form {
+            margin-bottom: 15px;
+        }
+
+        .main-box form a{
+            margin-left: 100px;
+        }
+
+        .main-box form input {
+            font-size: 18px;
+            background-color: white;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            padding: 3px;
+            margin: 5px;
+        }
+
+        .main-box form input::placeholder {
+            color: black; /* Light grey color for subtlety */
+            font-style: italic; /* Italic style to distinguish from user input */
+            font-size: 14px; /* Slightly smaller font size if necessary */
+            opacity: 0.7; /* Slightly lower opacity for a softer look */
+        }
+
+        .main-box select {
+            font-size: 18px;
+            background-color: white;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            padding: 3px;
+            margin: 5px;
+        }
+
+        .main-box button {
+            display: flex;
+            padding: 3px 20px;
+            margin: 5px;
+            background-color: #426552;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main-box button:hover {
+            transform: scale(1.025);
+        }
+
+        .main-box ul {
+            list-style-type: none;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-box ul li{
+            margin: 15px;
+        }
+
+        .main-box ul li img{
+            max-width: 100%;
+            height: 350px;
+            width: 350px;
+            object-fit: cover; /* Scale to cover the container */
+        }
+
+        .main-box h2 a{
+            font-size: 25px;
+            text-decoration: none;
+            color: black;
+        }
+
+        h2 {
+            color: black;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <h1>Recipe App</h1>
+        <nav class="main-navigation page-header__item">
+            <ul role="menubar" class="navigation-list">
+               <li role="presentation" role="menuitem" class="navigation-list__item"><a href="{% url 'recipes:create' %}">Create</a></li>
+               <li role="presentation" role="menuitem" class="navigation-list__item"><a href="{% url 'recipes:list' %}">Recipes</a></li>
+               <li role="presentation" role="menuitem" class="navigation-list__item"><a href="{% url 'users:profile' %}">Profile</a></li>
+               <li role="presentation" role="menuitem" class="navigation-list__item"><a href ="{%url 'logout' %}"> Logout </a></li>
+            </ul>
+         </nav>
+    </header>
+    <main>
+        <div class="main-box">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.recipe_name }}
+                {{ form.chart_type }}
+                <button type="submit">Search</button>
+                <a href="{% url 'recipes:list' %}"><button type="button">Show all</button></a>
+            </form>
+            {% if form.is_bound %}
+                <p>You searched for: {{ form.recipe_name.value }}</p>
+                {% if not recipes.empty %}
+                    <ul>
+                    {% for index, recipe in recipes.iterrows %}
+                        <li>
+                            <h2><a href="{% url 'recipes:detail' pk=recipe.id %}">{{ recipe.name }}</a></h2>
+                            <img src="/media/{{ recipe.pic }}" />
+                        </li>
+                    {% endfor %}
+                    </ul>
+                    <h1>Data Analytics</h1>
+                    <img class="data-analytics" src="data:image/png;base64, {{chart|safe}}">
+                    {% else  %}
+                        <h3>No data</h3>
+                    {% endif  %}
+                {% else  %}
+                <ul>
+                    {% for recipe in recipes %}
+                        <li>
+                            <a href="{% url 'recipes:detail' pk=recipe.id %}">
+                                <h2>{{ recipe.name }}</h2>
+                                <img src="{{ recipe.pic.url }}" />
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </main>
+</body>
+</html>

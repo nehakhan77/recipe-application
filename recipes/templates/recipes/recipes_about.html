@@ -1,0 +1,102 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'recipes/css/styles.css' %}">
+    <title>Recipes Home</title>
+    <link rel="shortcut icon" href="{% static 'recipes/images/' %}">
+    <style type="text/css">
+        .about-body {
+            background-image: none;
+            background-color: #F6F5F2;
+            padding: 0;
+            margin: 0;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        .page-footer {
+            clear: both;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            position: sticky;
+        }
+
+        .social_media_icon {
+            width: 30px;
+            height: 30px;
+        }
+
+        .social-media a {
+            padding: 0 5px;
+        }
+
+        p {
+            font-size: 1.125rem; /* 18px */
+            line-height: 1.6;
+            color: #666;
+            max-width: 800px;
+            margin: auto; /* Center the paragraph */
+            padding: 0 1rem;
+        }
+
+        .icon img {
+            width: 35px;
+            height: 35px;
+        }
+
+        .icon {
+            text-decoration: none;
+        }
+
+        h3 {
+            font-size: 20px;
+            font-style: italic;
+            color: red;
+        }
+    </style>
+</head>
+<body class="about-body">
+    <header class="page-header">
+        <h1>Recipe App</h1>
+        <nav class="main-navigation page-header__item">
+            <ul role="menubar" class="navigation-list">
+                <li role="presentation" role="menuitem" class="navigation-list__item"><a href="{%url 'recipes:home' %}">Home</a></li>
+                <li role="presentation" role="menuitem" class="navigation-list__item"><a href="{% url 'users:signup' %}">Sign Up</a></li>
+                <li role="presentation" role="menuitem" class="navigation-list__item"><a href ="{%url 'login' %}"> Login </a></li>
+                <li role="presentation" role="menuitem" class="navigation-list__item"><a href="{% url 'users:profile' %}">Profile</a></li>
+             </ul>
+         </nav>
+    </header>
+    <main>
+        <h1>About ~ Neha</h1>
+        <h3>Recipe App Developer</h3>
+        <hr>
+        <section>
+            <p>
+            Greetings! My name is Neha Khan and I am full-stack web developer based in New York City. I enjoy creating accessible, interactive,
+            and engaging digital experiences for all my users. I am a graduate of CareerFoundry's Full Stack Web Development Program, and I am
+            currently seeking a full-time position as a Junior Web Developer.
+            </p>
+            <hr>
+            <footer class="page-footer">
+                <p>Let's connect!</p>
+                <div class="icons-container">
+                   <a href="https://github.com/nehakhan77" target="_blank"><img class="social_media_icon" src="{% static 'recipes/images/github.svg' %}" alt="Github"></a>
+                   <a href="https://x.com/nayyyyk4" target="_blank"><img class="social_media_icon" src="{% static 'recipes/images/twitter.svg' %}" alt="Twitter"></a>
+                   <a href="https://www.linkedin.com/in/nehakhan1/" target="_blank"><img class="social_media_icon" src="{% static 'recipes/images/linkedin.svg' %}" alt="Linkedin"></a>
+                </div>
+             </footer>
+         </section>
+    </main>
+</body>
+</html>

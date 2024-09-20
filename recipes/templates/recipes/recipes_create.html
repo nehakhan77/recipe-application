@@ -1,0 +1,74 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'recipes/css/styles.css' %}">
+    <title>Recipes Home</title>
+    <link rel="shortcut icon" href="{% static 'recipes/images/' %}">
+</head>
+<body>
+    <header class="page-header">
+        <h1>Recipe App</h1>
+        <nav class="main-navigation page-header__item">
+            <ul role="menubar" class="navigation-list">
+                <li role="presentation" role="menuitem" class="navigation-list__item"><a href="{% url 'recipes:create' %}">Create</a></li>
+                <li role="presentation" role="menuitem" class="navigation-list__item"><a href="{% url 'recipes:list' %}">Recipes</a></li>
+                <li role="presentation" role="menuitem" class="navigation-list__item"><a href="{% url 'users:profile' %}">Profile</a></li>
+                <li role="presentation" role="menuitem" class="navigation-list__item"><a href ="{%url 'logout' %}"> Logout </a></li>
+             </ul>
+         </nav>
+    </header>
+    <style>
+    body, h2, form {
+        margin: 0;
+        padding: 0;
+    }
+
+    main {
+        margin-top: 50px;
+    }
+
+    /* Container Styling */
+    .create-container {
+        min-width: 800px; /* Adjust the width as needed */
+        margin: 0 auto; /* Center the container horizontally */
+        padding: 20px;
+        border-radius: 8px; /* Optional: Rounds the corners */
+        background-color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+    }
+
+    .create-container form {
+        min-width: 600px;
+        margin-left: 100px;
+    }
+
+    .create-container h2 {
+        color: black;
+    }
+    </style>
+    <main>
+        <div class="create-container">
+            <h2>Create Recipe</h2>
+            {% if error_message %}
+                {{error_message}}
+            {% endif %}
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% comment %} add Django security token {% endcomment %}
+                {% csrf_token %}    
+            
+                {% comment %} print form received from view  {% endcomment %}
+                {{create_form}}            
+            
+                <div class="form-field center-button">
+                    <button type="submit" class="button">Create Recipe</button>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,173 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'recipes/css/styles.css' %}">
+    <title>Recipes Home</title>
+    <link rel="shortcut icon" href="{% static 'recipes/images/' %}">
+    <style> 
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Prevent horizontal overflow */
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            background-color: #F6F5F2;
+            padding: 20px;
+            border-radius: 10px;
+            width: 70%;
+            margin-top: 50px;
+            margin-left: 12%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .user-container-details {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .right {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .main-box {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .main-box ul {
+            padding: 0;
+            list-style-type: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 0; /* Remove default margin */
+            width: 100%; /* Full width of the parent container */
+        }
+
+        .main-box ul li {
+            width: 100%;
+            max-width: 300px;
+            margin: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.3);
+            transition: 0.25s ease-out;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            flex-direction: column; /* Stack content vertically */
+            box-sizing: border-box;
+            
+        }
+
+        .main-box ul li a {
+            text-decoration: none;
+        }
+
+        .main-box ul li img {
+            object-fit: cover;
+            width: 300px;
+            height: 300px;
+        }
+
+        @media all and (max-width: 550px) {
+            .main-container {
+                width: 100%;
+                margin-left: 0;
+                padding: 10px;
+                box-sizing: border-box;
+            }        
+
+            .right {
+                width: 100%;
+                padding: 10px;
+                box-sizing: border-box;
+                position: static; /* Ensure normal flow */
+            }
+
+            .main-box {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .main-box ul {
+                padding: 10px;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .main-box ul li {
+                width: 100%;
+            }
+
+            .main-box ul li img {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <h1>Recipe App</h1>
+        <nav class="main-navigation page-header__item">
+            <ul role="menubar" class="navigation-list">
+                <li role="presentation" role="menuitem" class="navigation-list__item"><a href="{% url 'recipes:create' %}">Create</a></li>
+                <li role="presentation" role="menuitem" class="navigation-list__item"><a href="{% url 'recipes:list' %}">Recipes</a></li>
+                <li role="presentation" role="menuitem" class="navigation-list__item"><a href="{% url 'users:profile' %}">Profile</a></li>
+                <li role="presentation" role="menuitem" class="navigation-list__item"><a href ="{%url 'logout' %}"> Logout </a></li>
+            </ul>
+         </nav>
+    </header>
+    <div class="main-container">
+        <div class="user-container-details">
+            <h1>Welcome to your profile!</h1>
+            <b>Author:</b> {{current_user.name}} <br>
+            <b>Username: </b> {{current_user.user}} <br>
+            <b>Description: </b> {{current_user.description}} <br>
+            <div class="image-container">
+                <img src="{{object.pic.url}}" class="detail-image"/>
+            </div>
+        </div>
+        <hr>
+        <div class="right">
+            <h2>All Recipes By {{current_user.name}}</h2>
+            <div class="main-box">
+                {% if recipes %}
+                    <ul>
+                        {% for recipe in recipes %}
+                        <li>
+                            <a href="{% url 'recipes:detail' pk=recipe.id %}">
+                                <h2>{{ recipe.name }}</h2>
+                                <img src="{{ recipe.pic.url }}" />
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>You currently have no recipes yet!</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

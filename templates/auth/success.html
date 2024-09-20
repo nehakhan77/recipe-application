@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="description" content="Discover new recipes everyday!">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'recipes/css/styles.css' %}">
+    <title>Recipes Home</title>
+    <link rel="shortcut icon" href="{% static 'recipes/images/' %}">
+</head>
+<body>
+    <header class="page-header">
+        <h1>Recipe App</h1>
+        <nav class="main-navigation page-header__item">
+            <ul role="menubar" class="navigation-list">
+               <li role="presentation" role="menuitem" class="navigation-list__item"><a href="{%url 'recipes:home' %}">Home</a></li>
+               <li role="presentation" role="menuitem" class="navigation-list__item"><a href="{%url 'recipes:list' %}">Recipes</a></li>
+               <li role="presentation" role="menuitem" class="navigation-list__item"><a href="{%url 'users:profile' %}">Profile</a></li>
+               <li role="presentation" role="menuitem" class="navigation-list__item"><a href ="{%url 'login' %}"> Login </a></li>
+            </ul>
+         </nav>
+    </header>
+    <div class="auth_modal">
+        <h2>Successfully logged out!</h2>
+        <h2>See you next time!</h2>
+    </div>
+</body>
+</html>
