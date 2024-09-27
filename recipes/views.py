@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView
 from .models import Recipe, CustomUser
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -48,7 +48,7 @@ class RecipeListView(LoginRequiredMixin,ListView): #class-based view
 
 class RecipeDetailView(LoginRequiredMixin,DetailView):  #class-based view
    model = Recipe                                       #specify model
-   template_name = 'recipes/recipes_detail.html'        #specify template
+   template_name = 'recipes/recipes_detail.html'   
 
 @login_required
 def create_view(request):
@@ -79,6 +79,27 @@ def create_view(request):
       }
 
       return render(request, 'recipes/recipes_create.html', context)
+
+# Function to update a recipe
+@login_required
+def update_recipe(request, pk):
+   recipe = get_object_or_404(Recipe, pk=pk)
+   if request.method == 'POST':
+      form = CreateRecipeForm(request.POST, request.FILES, instance=recipe)
+      if form.is_valid():
+         recipe.save()
+         return redirect('recipes:detail', pk=recipe.pk)
+      else:
+         form = CreateRecipeForm(instance=recipe)
+         print('Something went wrong.')
+
+   return render(request, 'recipes/recipes_details.html', {'object': recipe})
+
+@login_required
+def delete_recipe(request, pk):
+   recipe = get_object_or_404(Recipe, pk=pk)
+   recipe.delete()
+   return redirect('recipes:list')
 
 def about_view(request):
    return render(request, 'recipes/recipes_about.html')

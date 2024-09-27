@@ -33,6 +33,77 @@
                 <img src="{{object.pic.url}}" class="detail-image"/>
             </div>
         </div>
+        {% with object.author as author %}
+            {% if user.username == author.user.username %}
+                <div class="button-container">
+                    <a data-open-modal class="button">Update</a>
+                    <a open-delete-modal class="button delete">Delete</a>
+                </div>
+            {% endif %}
+        {% endwith %}
+        <!-- Delete Modal -->
+        <dialog delete-modal>
+            <h2>Delete this Recipe</h2>
+            <p>Are you sure that you want to delete this recipe?</p>
+            <div class="button-container">
+                <a close-delete-modal class="button">Close</a>
+                <a href="{% url 'recipes:delete' object.id %}" class="button delete">Delete</a>
+            </div>
+        </dialog>
+        <!-- Update Modal -->
+        <dialog data-modal>
+            <h2>Update Recipe</h2>
+            <form action="{% url 'recipes:update' object.id %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" value="{{object.name}}" required>
+
+                <label for="cooking_time">Cooking Time:</label>
+                <input type="number" id="cooking_time" name="cooking_time" value="{{ object.cooking_time }}" placeholder="in min" required>
+
+                <label for="ingredients">
+                    Ingredients:
+                </label>
+                <input type="text" id="ingredients" name="ingredients" value="{{ object.ingredients }}" placeholder="Each ingredient seperated by a comma" required>
+
+                <label for="instructions">Instructions:</label>
+                <textarea type="text" id="instructions" name="instructions" rows="5">{{ object.instructions }}</textarea>
+
+                <label for="pic">Picture:</label>
+                <input type="file" id="pic" name="pic" accept="image/*">
+
+                <button type="submit" class="button">Update</button>
+            </form>
+            <button data-close-modal class="button">Close</button>
+        </dialog>
     </div>
+    </main>
+    <script>
+        const openButton = document.querySelector("[data-open-modal]")
+        const closeButton = document.querySelector("[data-close-modal]")
+        const modal = document.querySelector("[data-modal]")
+        const deleteButton = document.querySelector("[open-delete-modal]")
+        const closeDeleteButton = document.querySelector("[close-delete-modal]")
+        const deleteModal = document.querySelector("[delete-modal]")
+
+        // open update modal
+        openButton.addEventListener("click", () => {
+            modal.showModal()
+        })
+
+        closeButton.addEventListener("click", () => {
+            modal.close()
+        })
+
+        // open delete modal
+        deleteButton.addEventListener("click", () => {
+            deleteModal.showModal()
+        })
+
+        closeDeleteButton.addEventListener("click", () => {
+            deleteModal.close()
+        })
+    </script>
 </body>
 </html>
+    

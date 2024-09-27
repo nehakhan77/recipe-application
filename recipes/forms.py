@@ -1,4 +1,6 @@
 from django import forms
+from .models import Recipe
+from django.forms import TextInput, Textarea, NumberInput
 
 CHART__CHOICES = (
    ('bar_chart', 'Bar chart'),
@@ -15,9 +17,13 @@ class RecipeSearchForm(forms.Form):
     )
    chart_type = forms.ChoiceField(choices=CHART__CHOICES)
 
-class CreateRecipeForm(forms.Form):
-   name = forms.CharField(max_length=120)
-   cooking_time = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': 'In minutes'}))
-   ingredients = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'List ingredients separated by commas'}))
-   description = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Enter recipe description here'}))
-   pic = forms.ImageField(required=False)
+class CreateRecipeForm(forms.ModelForm):
+   class Meta:
+        model = Recipe
+        fields = [ "name", "cooking_time", "ingredients", "description", "pic"]
+        widgets = {
+            'name': TextInput(attrs={'class': 'form-control'}),
+            'cooking_time': NumberInput(attrs={'class': 'form-control'}),
+            'ingredients': TextInput(attrs={'class': 'form-control'}),
+            'description': Textarea(attrs={'class': 'form-control'}),
+        }
