@@ -6,8 +6,8 @@ from django.utils import timezone
 class Recipe(models.Model):
     name= models.CharField(max_length=120)
     author = models.ForeignKey(CustomUser, null=True, blank=True, on_delete=models.SET_NULL)
-    cooking_time= models.IntegerField(help_text="In minutes", default=0)
-    ingredients= models.CharField(max_length=225, help_text="Separate each ingredient by a comma")
+    cooking_time= models.IntegerField(default=0)
+    ingredients= models.CharField(max_length=225)
     description= models.TextField(blank=True, null=True)
     _difficulty = models.CharField(max_length=120, default='')
     pic = models.ImageField(upload_to='recipes', default='no_picture.jpg')

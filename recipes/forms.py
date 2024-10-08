@@ -18,12 +18,12 @@ class RecipeSearchForm(forms.Form):
    chart_type = forms.ChoiceField(choices=CHART__CHOICES)
 
 class CreateRecipeForm(forms.ModelForm):
-   class Meta:
+    class Meta:
         model = Recipe
         fields = [ "name", "cooking_time", "ingredients", "description", "pic"]
         widgets = {
             'name': TextInput(attrs={'class': 'form-control'}),
-            'cooking_time': NumberInput(attrs={'class': 'form-control'}),
-            'ingredients': TextInput(attrs={'class': 'form-control'}),
+            'cooking_time': forms.NumberInput(attrs={'class': 'form-control', }),
+            'ingredients': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Separate each ingredient with a comma'}),
             'description': Textarea(attrs={'class': 'form-control'}),
         }

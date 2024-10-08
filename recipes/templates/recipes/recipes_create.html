@@ -8,6 +8,91 @@
     <link rel="stylesheet" type="text/css" href="{% static 'recipes/css/styles.css' %}">
     <title>Recipes Home</title>
     <link rel="shortcut icon" href="{% static 'recipes/images/' %}">
+    <style>
+        body, h2, form {
+            margin: 0;
+            padding: 0;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        /* Container Styling */
+        .create-container {
+            width: 100%; /* Adjust the width as needed */
+            max-width: 800px;
+            margin: 0 auto; /* Center the container horizontally */
+            padding: 20px;
+            border-radius: 8px; /* Optional: Rounds the corners */
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .create-container form {
+            width: 100%; /* Use 100% width for flexibility */
+            margin: 0 auto; /* Center form */
+        }
+
+        /* Heading Styles */
+        .create-container h2 {
+            color: black;
+            text-align: center; /* Center text for better appearance */
+        }
+
+        .create-container input {
+            width: 100%; /* Full width within the parent, can adjust as needed */
+            max-width: 800px; /* Limit the width of the input */
+            padding: 10px; /* Add some padding for better usability */
+            margin: 10px 0; /* Space between input fields */
+            border: 1px solid #ccc; /* Border styling */
+            border-radius: 4px; /* Rounded corners */
+            box-sizing: border-box; /* Ensure padding and border are included in total width */
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .create-container {
+                padding: 15px; /* Reduce padding on smaller screens */
+            }
+
+            .create-container form {
+                margin-left: 0; /* Remove left margin */
+            }
+
+            .create-container h2 {
+                font-size: 1.5em; /* Adjust heading size for smaller screens */
+            }
+
+            .create-container input {
+                max-width: 90%; /* More flexible on smaller screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            main {
+                flex-direction: column; /* Stack elements vertically */
+            }
+
+            .create-container {
+                padding: 10px; /* Further reduce padding */
+            }
+
+            .create-container h2 {
+                font-size: 1.2em; /* Smaller heading size */
+            }
+
+            .button {
+                width: 100%; /* Full width button */
+                font-size: 1em; /* Larger text for readability */
+            }
+        }
+    </style>
 </head>
 <body>
     <header class="page-header">
@@ -21,36 +106,6 @@
              </ul>
          </nav>
     </header>
-    <style>
-    body, h2, form {
-        margin: 0;
-        padding: 0;
-    }
-
-    main {
-        margin-top: 50px;
-    }
-
-    /* Container Styling */
-    .create-container {
-        min-width: 800px; /* Adjust the width as needed */
-        margin: 0 auto; /* Center the container horizontally */
-        padding: 20px;
-        border-radius: 8px; /* Optional: Rounds the corners */
-        background-color: rgba(255, 255, 255, 0.9);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(10px);
-    }
-
-    .create-container form {
-        min-width: 600px;
-        margin-left: 100px;
-    }
-
-    .create-container h2 {
-        color: black;
-    }
-    </style>
     <main>
         <div class="create-container">
             <h2>Create Recipe</h2>

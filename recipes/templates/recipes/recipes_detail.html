@@ -8,6 +8,88 @@
     <link rel="stylesheet" type="text/css" href="{% static 'recipes/css/styles.css' %}">
     <title>Recipes Home</title>
     <link rel="shortcut icon" href="{% static 'recipes/images/' %}">
+    <style>
+        body, h2 {
+            margin: 0;
+            padding: 0;
+        }
+
+        .flex-container {
+            display: flex;
+            flex-direction: column; /* Stack elements vertically by default */
+            align-items: center;
+            padding: 20px;
+        }
+
+        .recipe-container-details {
+            max-width: 600px; /* Limit width of the details section */
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .detail-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .button {
+            padding: 10px 15px;
+            min-width: 120px; /* Minimum button width */
+        }
+
+        @media (min-width: 768px) {
+            .flex-container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+            }
+            .recipe-container-details {
+                margin-bottom: 0;
+                margin-right: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .recipe-container-details {
+                margin: 10px 0; /* Ensure spacing between elements */
+            }
+
+            .button-container {
+                flex-direction: column; /* Stack buttons vertically */
+                align-items: center;
+            }
+
+            .button {
+                width: 100%; /* Full width buttons */
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                font-size: 14px; /* Smaller base font size */
+            }
+            .recipe-container-details,
+            .flex-container {
+                padding: 10px;
+                width: 100%;
+                margin-left: 20px;
+            }
+            .button {
+                padding: 8px 10px;
+                font-size: 14px; /* Adjust button text size */
+            }
+        }
+    </style>
 </head>
 <body>
     <header class="page-header">
